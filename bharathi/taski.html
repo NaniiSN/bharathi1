@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #result { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Number Guessing Game!</h1>
+    <p>I'm thinking of a number between 1 and 100.</p>
+    <p>You have <span id="attempts-left">10</span> attempts to guess it.</p>
+
+    <input type="number" id="guess" placeholder="Enter your guess" />
+    <button onclick="makeGuess()">Submit Guess</button>
+
+    <div id="result"></div>
+
+    <script>
+        let numberToGuess = Math.floor(Math.random() * 100) + 1;
+        let attempts = 10;
+
+        function makeGuess() {
+            const playerGuess = parseInt(document.getElementById("guess").value);
+            const resultDiv = document.getElementById("result");
+            const attemptsLeftDiv = document.getElementById("attempts-left");
+
+            if (isNaN(playerGuess)) {
+                resultDiv.innerHTML = "Please enter a valid number.";
+                return;
+            }
+
+            attempts--;
+
+            if (playerGuess < numberToGuess) {
+                resultDiv.innerHTML = "Too low! Try again.";
+            } else if (playerGuess > numberToGuess) {
+                resultDiv.innerHTML = "Too high! Try again.";
+            } else {
+                resultDiv.innerHTML = `Congratulations! You've guessed the number ${numberToGuess}!`;
+                return;
+            }
+
+            if (attempts === 0) {
+                resultDiv.innerHTML = `Sorry! You've used all your attempts. The number was ${numberToGuess}.`;
+            }
+
+            attemptsLeftDiv.innerHTML = attempts;
+        }
+    </script>
+</body>
+</html>
